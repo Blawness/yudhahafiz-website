@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Github, Linkedin, Mail, MessageCircle, Code2, Instagram } from "lucide-react";
+import { Github, Linkedin, Mail, MessageCircle, Instagram } from "lucide-react";
 
 const footerLinks = [
   { href: "/", label: "Home" },
