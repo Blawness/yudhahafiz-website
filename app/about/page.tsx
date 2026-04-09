@@ -81,6 +81,7 @@ export default function AboutPage() {
                 src="/images/yudha-formal.webp"
                 alt="Yudha Hafiz"
                 fill
+                sizes="(max-width: 768px) 100vw, 280px"
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
                 priority
               />
