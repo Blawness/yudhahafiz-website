@@ -48,7 +48,7 @@ export function AboutShort() {
             </ul>
 
             <Button variant="outline" asChild>
-              <Link href="/about-yudha-hafiz">
+              <Link href="/about">
                 Learn More About Me <ArrowRight size={14} />
               </Link>
             </Button>

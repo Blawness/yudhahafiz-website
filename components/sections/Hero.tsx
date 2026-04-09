@@ -74,7 +74,7 @@ export function Hero() {
             </a>
           </Button>
           <Button size="lg" variant="outline" asChild className="rounded-full px-8 border-zinc-800 hover:bg-zinc-900">
-            <Link href="/projects-yudha-hafiz">View My Projects</Link>
+            <Link href="/projects">View My Projects</Link>
           </Button>
         </motion.div>
 

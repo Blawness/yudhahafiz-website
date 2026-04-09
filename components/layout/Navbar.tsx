@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Menu, X, Code2 } from "lucide-react";
@@ -9,8 +10,8 @@ import { Button } from "@/components/ui/button";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/about-yudha-hafiz", label: "About" },
-  { href: "/projects-yudha-hafiz", label: "Projects" },
+  { href: "/about", label: "About" },
+  { href: "/projects", label: "Projects" },
   { href: "/blog", label: "Blog" },
 ];
 
@@ -40,8 +41,14 @@ export function Navbar() {
           href="/"
           className="flex items-center gap-2 text-zinc-100 font-bold text-lg group"
         >
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-violet-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-            <Code2 size={16} className="text-white" />
+          <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+            <Image
+              src="/favicon.ico"
+              alt="Yudha Hafiz Logo"
+              width={32}
+              height={32}
+              className="w-full h-full object-cover"
+            />
           </div>
           <span className="gradient-text">Yudha Hafiz</span>
         </Link>

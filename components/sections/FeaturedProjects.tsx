@@ -118,7 +118,7 @@ export function FeaturedProjects() {
           className="text-center"
         >
           <Button variant="outline" asChild>
-            <Link href="/projects-yudha-hafiz">
+            <Link href="/projects">
               See All Projects <ArrowRight size={14} />
             </Link>
           </Button>

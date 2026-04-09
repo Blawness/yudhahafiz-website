@@ -1,10 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Github, Linkedin, Mail, MessageCircle, Code2, Instagram } from "lucide-react";
 
 const footerLinks = [
   { href: "/", label: "Home" },
-  { href: "/about-yudha-hafiz", label: "About" },
-  { href: "/projects-yudha-hafiz", label: "Projects" },
+  { href: "/about", label: "About" },
+  { href: "/projects", label: "Projects" },
   { href: "/blog", label: "Blog" },
 ];
 
@@ -46,8 +47,14 @@ export function Footer() {
           {/* Brand */}
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-violet-600 flex items-center justify-center">
-                <Code2 size={16} className="text-white" />
+              <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center">
+                <Image
+                  src="/favicon.ico"
+                  alt="Yudha Hafiz Logo"
+                  width={32}
+                  height={32}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <span className="font-bold text-zinc-100">Yudha Hafiz</span>
             </div>
