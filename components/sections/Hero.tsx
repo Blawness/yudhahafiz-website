@@ -39,9 +39,9 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-tight mb-6"
+          className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-tight mb-6 flex flex-col sm:block"
         >
-          Hi, I&apos;m{" "}
+          <span>Hi, I&apos;m </span>
           <TypingAnimation 
             texts={[
               "Yudha Hafiz",
@@ -49,7 +49,7 @@ export function Hero() {
               "an AI Integrator",
               "an Automation Specialist"
             ]}
-            className="gradient-text whitespace-nowrap"
+            className="gradient-text inline-block"
           />
         </motion.h1>
 

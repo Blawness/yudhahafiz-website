@@ -108,14 +108,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable} data-scroll-behavior="smooth">
+    <html lang="en" className={`${inter.variable} overflow-x-hidden`} data-scroll-behavior="smooth">
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
       </head>
-      <body className="min-h-screen bg-zinc-950 text-zinc-100 antialiased">
+      <body className="min-h-screen bg-zinc-950 text-zinc-100 antialiased overflow-x-hidden">
         <Navbar />
         <main>{children}</main>
         <Footer />
