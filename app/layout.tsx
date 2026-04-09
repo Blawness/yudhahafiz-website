@@ -78,8 +78,9 @@ const personSchema = {
   description:
     "Fullstack Developer specializing in Web Apps, Automation, and AI Integration",
   sameAs: [
-    "https://github.com/yudhahafiz",
-    "https://linkedin.com/in/yudhahafiz",
+    "https://github.com/Blawness",
+    "https://www.linkedin.com/in/yudha-hafiz/",
+    "https://www.instagram.com/yudha_hafiz"
   ],
   knowsAbout: [
     "Next.js",

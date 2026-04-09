@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, MessageCircle, Calendar, ArrowRight } from "lucide-react";
+import { Mail, MessageCircle, Video, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const contactOptions = [
@@ -15,16 +15,16 @@ const contactOptions = [
   {
     icon: MessageCircle,
     label: "WhatsApp",
-    value: "+62 812-3456-7890",
-    href: "https://wa.me/6281234567890?text=Hi%20Yudha%2C%20I%27d%20like%20to%20discuss%20a%20project",
+    value: "+62 851-6700-2152",
+    href: "https://wa.me/6285167002152?text=Hi%20Yudha%2C%20I%27d%20like%20to%20discuss%20a%20project",
     description: "Quick chat & fast response",
   },
   {
-    icon: Calendar,
-    label: "Schedule a Call",
-    value: "Book a free 30-min call",
-    href: "https://calendly.com/yudhahafiz",
-    description: "Let's talk about your project",
+    icon: Video,
+    label: "Google Meet",
+    value: "Book a Session",
+    href: "https://calendar.app.google/KnXFA2rf1cUnU38r5",
+    description: "Free 30-min discovery call",
   },
 ];
 
@@ -92,7 +92,11 @@ export function ContactCTA() {
           className="text-center"
         >
           <Button size="lg" asChild>
-            <a href="mailto:yudhahafiz@gmail.com">
+            <a 
+              href="https://wa.me/6285167002152?text=Hi%20Yudha%2C%20I%27d%20like%20to%20discuss%20a%20project" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
               Start a Conversation <ArrowRight size={16} />
             </a>
           </Button>

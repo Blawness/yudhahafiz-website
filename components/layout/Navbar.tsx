@@ -43,7 +43,7 @@ export function Navbar() {
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-violet-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
             <Code2 size={16} className="text-white" />
           </div>
-          <span className="gradient-text">YH</span>
+          <span className="gradient-text">Yudha Hafiz</span>
         </Link>
 
         {/* Desktop nav */}

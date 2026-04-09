@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Github, Linkedin, Mail, MessageCircle, Code2 } from "lucide-react";
+import { Github, Linkedin, Mail, MessageCircle, Code2, Instagram } from "lucide-react";
 
 const footerLinks = [
   { href: "/", label: "Home" },
@@ -15,17 +15,22 @@ const socialLinks = [
     label: "Email",
   },
   {
-    href: "https://wa.me/6281234567890",
+    href: "https://wa.me/6285167002152",
     icon: MessageCircle,
     label: "WhatsApp",
   },
   {
-    href: "https://github.com/yudhahafiz",
+    href: "https://www.instagram.com/yudha_hafiz",
+    icon: Instagram,
+    label: "Instagram",
+  },
+  {
+    href: "https://github.com/Blawness",
     icon: Github,
     label: "GitHub",
   },
   {
-    href: "https://linkedin.com/in/yudhahafiz",
+    href: "https://www.linkedin.com/in/yudha-hafiz/",
     icon: Linkedin,
     label: "LinkedIn",
   },

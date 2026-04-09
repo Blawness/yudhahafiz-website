@@ -4,10 +4,12 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { TypingAnimation } from "@/components/animations/TypingAnimation";
+import { TerminalAnimation } from "@/components/animations/TerminalAnimation";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16">
       {/* Background grid */}
       <div
         className="absolute inset-0 opacity-[0.03]"
@@ -37,10 +39,18 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-tight mb-6"
+          className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-tight mb-6"
         >
           Hi, I&apos;m{" "}
-          <span className="gradient-text">Yudha Hafiz</span>
+          <TypingAnimation 
+            texts={[
+              "Yudha Hafiz",
+              "a Fullstack Developer",
+              "an AI Integrator",
+              "an Automation Specialist"
+            ]}
+            className="gradient-text whitespace-nowrap"
+          />
         </motion.h1>
 
         <motion.p
@@ -49,44 +59,34 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="text-xl sm:text-2xl text-zinc-400 max-w-3xl mx-auto mb-4 leading-relaxed"
         >
-          Fullstack Developer specializing in{" "}
-          <span className="text-zinc-200 font-medium">Web Apps</span>,{" "}
-          <span className="text-zinc-200 font-medium">Automation</span>, and{" "}
-          <span className="text-zinc-200 font-medium">AI Integration</span>
-        </motion.p>
-
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="text-base text-zinc-500 max-w-xl mx-auto mb-12"
-        >
-          I build digital products that drive real business impact — from MVPs to enterprise solutions.
+          Building digital products that drive real business impact — from MVPs to enterprise solutions.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
         >
-          <Button size="lg" asChild>
+          <Button size="lg" asChild className="rounded-full px-8">
             <a href="#contact">
               Let&apos;s Work Together
-              <ArrowRight size={16} />
             </a>
           </Button>
-          <Button size="lg" variant="outline" asChild>
+          <Button size="lg" variant="outline" asChild className="rounded-full px-8 border-zinc-800 hover:bg-zinc-900">
             <Link href="/projects-yudha-hafiz">View My Projects</Link>
           </Button>
         </motion.div>
+
+        {/* CLI Animation */}
+        <TerminalAnimation />
 
         {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-zinc-600"
+          transition={{ duration: 1, delay: 1.5 }}
+          className="mt-20 flex flex-col items-center gap-2 text-zinc-600"
         >
           <span className="text-xs uppercase tracking-widest">Scroll</span>
           <motion.div

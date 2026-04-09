@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Code2, Brain, Zap, Globe } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -73,10 +74,17 @@ export default function AboutPage() {
 
         {/* Bio */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20">
-          {/* Avatar placeholder */}
+          {/* Avatar */}
           <div className="flex justify-center md:justify-start">
-            <div className="w-48 h-48 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-violet-500/20 border border-zinc-800 flex items-center justify-center">
-              <span className="text-6xl font-bold gradient-text">YH</span>
+            <div className="relative w-full max-w-[280px] aspect-[864/1100] rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl group flex-shrink-0">
+              <Image
+                src="/images/yudha-formal.webp"
+                alt="Yudha Hafiz"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/20 to-transparent" />
             </div>
           </div>
 
