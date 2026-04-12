@@ -7,24 +7,38 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { LanguageToggle } from "@/components/ui/LanguageToggle";
+import type { Dictionary, Locale } from "@/dictionaries";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-  { href: "/blog", label: "Blog" },
-];
+interface NavbarProps {
+  dict: Dictionary;
+  lang: Locale;
+}
 
-export function Navbar() {
+export function Navbar({ dict, lang }: NavbarProps) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const prefix = lang === "en" ? "/en" : "";
+
+  const navLinks = [
+    { href: `${prefix}/`, label: dict.nav.home },
+    { href: `${prefix}/about`, label: dict.nav.about },
+    { href: `${prefix}/projects`, label: dict.nav.projects },
+    { href: `${prefix}/blog`, label: dict.nav.blog },
+  ];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const isActive = (href: string) => {
+    if (href === `${prefix}/`) return pathname === "/" || pathname === `${prefix}/` || pathname === prefix;
+    return pathname === href || pathname.startsWith(href + "/");
+  };
 
   return (
     <header
@@ -38,7 +52,7 @@ export function Navbar() {
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link
-          href="/"
+          href={`${prefix}/`}
           className="flex items-center gap-2 text-zinc-100 font-bold text-lg group"
         >
           <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
@@ -61,7 +75,7 @@ export function Navbar() {
                 href={link.href}
                 className={cn(
                   "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
-                  pathname === link.href
+                  isActive(link.href)
                     ? "text-cyan-400 bg-cyan-500/10"
                     : "text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800"
                 )}
@@ -72,10 +86,11 @@ export function Navbar() {
           ))}
         </ul>
 
-        {/* CTA */}
-        <div className="hidden md:flex">
+        {/* Right side: Lang toggle + CTA */}
+        <div className="hidden md:flex items-center gap-3">
+          <LanguageToggle currentLang={lang} />
           <Button size="sm" asChild>
-            <a href="#contact">Hire Me</a>
+            <a href={`${prefix}/#contact`}>{dict.nav.cta}</a>
           </Button>
         </div>
 
@@ -100,7 +115,7 @@ export function Navbar() {
                   onClick={() => setMobileOpen(false)}
                   className={cn(
                     "block px-4 py-2.5 rounded-lg text-sm font-medium transition-all",
-                    pathname === link.href
+                    isActive(link.href)
                       ? "text-cyan-400 bg-cyan-500/10"
                       : "text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800"
                   )}
@@ -109,9 +124,12 @@ export function Navbar() {
                 </Link>
               </li>
             ))}
-            <li className="pt-2">
-              <Button size="sm" className="w-full" asChild>
-                <a href="#contact">Hire Me</a>
+            <li className="pt-2 flex items-center justify-between gap-3">
+              <LanguageToggle currentLang={lang} />
+              <Button size="sm" className="flex-1" asChild>
+                <a href={`${prefix}/#contact`} onClick={() => setMobileOpen(false)}>
+                  {dict.nav.cta}
+                </a>
               </Button>
             </li>
           </ul>

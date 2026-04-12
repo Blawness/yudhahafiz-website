@@ -1,44 +1,31 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Github, Linkedin, Mail, MessageCircle, Instagram } from "lucide-react";
+import type { Dictionary, Locale } from "@/dictionaries";
 
-const footerLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-  { href: "/blog", label: "Blog" },
-];
+interface FooterProps {
+  dict: Dictionary;
+  lang: Locale;
+}
 
 const socialLinks = [
-  {
-    href: "mailto:yudhahafiz@gmail.com",
-    icon: Mail,
-    label: "Email",
-  },
-  {
-    href: "https://wa.me/6285167002152",
-    icon: MessageCircle,
-    label: "WhatsApp",
-  },
-  {
-    href: "https://www.instagram.com/yudha_hafiz",
-    icon: Instagram,
-    label: "Instagram",
-  },
-  {
-    href: "https://github.com/Blawness",
-    icon: Github,
-    label: "GitHub",
-  },
-  {
-    href: "https://www.linkedin.com/in/yudha-hafiz/",
-    icon: Linkedin,
-    label: "LinkedIn",
-  },
+  { href: "mailto:yudhahafiz@gmail.com", icon: Mail, label: "Email" },
+  { href: "https://wa.me/6285167002152", icon: MessageCircle, label: "WhatsApp" },
+  { href: "https://www.instagram.com/yudha_hafiz", icon: Instagram, label: "Instagram" },
+  { href: "https://github.com/Blawness", icon: Github, label: "GitHub" },
+  { href: "https://www.linkedin.com/in/yudha-hafiz/", icon: Linkedin, label: "LinkedIn" },
 ];
 
-export function Footer() {
+export function Footer({ dict, lang }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  const prefix = lang === "en" ? "/en" : "";
+
+  const footerLinks = [
+    { href: `${prefix}/`, label: dict.nav.home },
+    { href: `${prefix}/about`, label: dict.nav.about },
+    { href: `${prefix}/projects`, label: dict.nav.projects },
+    { href: `${prefix}/blog`, label: dict.nav.blog },
+  ];
 
   return (
     <footer className="border-t border-zinc-800 bg-zinc-950">
@@ -59,13 +46,13 @@ export function Footer() {
               <span className="font-bold text-zinc-100">Yudha Hafiz</span>
             </div>
             <p className="text-sm text-zinc-400 leading-relaxed max-w-xs">
-              Fullstack Developer specializing in Web Apps, Automation, and AI Integration.
+              {dict.footer.tagline}
             </p>
           </div>
 
           {/* Nav */}
           <div>
-            <h3 className="text-sm font-semibold text-zinc-100 mb-3">Navigation</h3>
+            <h3 className="text-sm font-semibold text-zinc-100 mb-3">{dict.footer.navigation}</h3>
             <ul className="flex flex-col gap-2">
               {footerLinks.map((link) => (
                 <li key={link.href}>
@@ -82,7 +69,7 @@ export function Footer() {
 
           {/* Social */}
           <div>
-            <h3 className="text-sm font-semibold text-zinc-100 mb-3">Contact</h3>
+            <h3 className="text-sm font-semibold text-zinc-100 mb-3">{dict.footer.contact}</h3>
             <ul className="flex flex-col gap-2">
               {socialLinks.map((link) => (
                 <li key={link.label}>
@@ -103,11 +90,9 @@ export function Footer() {
 
         <div className="mt-10 pt-6 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-zinc-500">
-            © {currentYear} Yudha Hafiz. All rights reserved.
+            © {currentYear} Yudha Hafiz. {dict.footer.copyright}
           </p>
-          <p className="text-xs text-zinc-600">
-            Built with Next.js · TypeScript · Tailwind CSS
-          </p>
+          <p className="text-xs text-zinc-600">{dict.footer.builtWith}</p>
         </div>
       </div>
     </footer>

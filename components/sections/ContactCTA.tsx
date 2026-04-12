@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Mail, MessageCircle, Video, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import type { Dictionary } from "@/dictionaries";
 
 const contactOptions = [
   {
@@ -10,25 +11,26 @@ const contactOptions = [
     label: "Email",
     value: "yudhahafiz@gmail.com",
     href: "mailto:yudhahafiz@gmail.com",
-    description: "Best for detailed project briefs",
   },
   {
     icon: MessageCircle,
     label: "WhatsApp",
     value: "+62 851-6700-2152",
     href: "https://wa.me/6285167002152?text=Hi%20Yudha%2C%20I%27d%20like%20to%20discuss%20a%20project",
-    description: "Quick chat & fast response",
   },
   {
     icon: Video,
     label: "Google Meet",
     value: "Book a Session",
     href: "https://calendar.app.google/KnXFA2rf1cUnU38r5",
-    description: "Free 30-min discovery call",
   },
 ];
 
-export function ContactCTA() {
+interface ContactCTAProps {
+  dict: Dictionary;
+}
+
+export function ContactCTA({ dict }: ContactCTAProps) {
   return (
     <section id="contact" className="py-24 px-4 sm:px-6 relative overflow-hidden">
       {/* Background glow */}
@@ -44,15 +46,13 @@ export function ContactCTA() {
           className="text-center mb-16"
         >
           <span className="text-cyan-400 text-sm font-semibold uppercase tracking-widest mb-3 block">
-            Get In Touch
+            {dict.contact.label}
           </span>
           <h2 className="text-3xl sm:text-5xl font-bold text-zinc-100 mb-6 leading-tight">
-            Let&apos;s build something{" "}
-            <span className="gradient-text">impactful</span>
+            {dict.contact.headline}{" "}
+            <span className="gradient-text">{dict.contact.headlineHighlight}</span>
           </h2>
-          <p className="text-zinc-400 max-w-xl mx-auto text-lg">
-            Have a project in mind? I&apos;d love to hear about it. Let&apos;s talk about how we can work together.
-          </p>
+          <p className="text-zinc-400 max-w-xl mx-auto text-lg">{dict.contact.subtitle}</p>
         </motion.div>
 
         <motion.div
@@ -79,7 +79,7 @@ export function ContactCTA() {
               </div>
               <span className="text-sm font-semibold text-zinc-100 mb-1">{option.label}</span>
               <span className="text-xs text-cyan-400 mb-2 font-medium">{option.value}</span>
-              <span className="text-xs text-zinc-500">{option.description}</span>
+              <span className="text-xs text-zinc-500">{dict.contact.options[i]?.description}</span>
             </motion.a>
           ))}
         </motion.div>
@@ -92,12 +92,12 @@ export function ContactCTA() {
           className="text-center"
         >
           <Button size="lg" asChild>
-            <a 
-              href="https://wa.me/6285167002152?text=Hi%20Yudha%2C%20I%27d%20like%20to%20discuss%20a%20project" 
-              target="_blank" 
+            <a
+              href="https://wa.me/6285167002152?text=Hi%20Yudha%2C%20I%27d%20like%20to%20discuss%20a%20project"
+              target="_blank"
               rel="noopener noreferrer"
             >
-              Start a Conversation <ArrowRight size={16} />
+              {dict.contact.cta} <ArrowRight size={16} />
             </a>
           </Button>
         </motion.div>

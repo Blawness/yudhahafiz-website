@@ -41,4 +41,4 @@ Yudha believes that technology is only as valuable as the business impact it cre
 
 ## Let's Connect
 
-If you're looking for a developer who cares as much about your business outcomes as you do, [let's talk](/about-yudha-hafiz).
+If you're looking for a developer who cares as much about your business outcomes as you do, [let's talk](/about).

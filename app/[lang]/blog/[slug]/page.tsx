@@ -3,26 +3,39 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Calendar } from "lucide-react";
 import { getPostBySlug, getAllPosts } from "@/lib/blog";
+import { getDictionary, locales, defaultLocale, type Locale } from "@/dictionaries";
 
 interface Props {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ lang: string; slug: string }>;
 }
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
-  return posts.map((post) => ({ slug: post.slug }));
+  const params: { lang: string; slug: string }[] = [];
+
+  for (const lang of locales) {
+    for (const post of posts) {
+      params.push({ lang, slug: post.slug });
+    }
+  }
+
+  return params;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { lang, slug } = await params;
+  const locale = locales.includes(lang as Locale) ? (lang as Locale) : defaultLocale;
   const post = await getPostBySlug(slug);
   if (!post) return {};
+
+  const baseUrl = "https://yudhahafiz.com";
+  const canonical = locale === "id" ? `${baseUrl}/blog/${slug}` : `${baseUrl}/en/blog/${slug}`;
 
   return {
     title: post.title,
     description: post.description,
     alternates: {
-      canonical: `https://yudhahafiz.com/blog/${slug}`,
+      canonical,
     },
     openGraph: {
       title: post.title,
@@ -35,7 +48,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const { slug } = await params;
+  const { lang, slug } = await params;
+  const locale = locales.includes(lang as Locale) ? (lang as Locale) : defaultLocale;
+  const dict = await getDictionary(locale);
+  const d = dict.blogPage;
+  const prefix = locale === "en" ? "/en" : "";
+
   const post = await getPostBySlug(slug);
 
   if (!post) notFound();
@@ -45,18 +63,18 @@ export default async function BlogPostPage({ params }: Props) {
       <div className="max-w-3xl mx-auto">
         {/* Back link */}
         <Link
-          href="/blog"
+          href={`${prefix}/blog`}
           className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-cyan-400 transition-colors mb-10"
         >
           <ArrowLeft size={14} />
-          Back to Blog
+          {d.backToBlog}
         </Link>
 
         {/* Header */}
         <div className="mb-10">
           <div className="flex items-center gap-2 text-xs text-zinc-500 mb-4">
             <Calendar size={12} />
-            {new Date(post.date).toLocaleDateString("en-US", {
+            {new Date(post.date).toLocaleDateString(locale === "id" ? "id-ID" : "en-US", {
               year: "numeric",
               month: "long",
               day: "numeric",
@@ -88,17 +106,17 @@ export default async function BlogPostPage({ params }: Props) {
         {/* Footer */}
         <div className="mt-16 pt-8 border-t border-zinc-800 text-center">
           <p className="text-sm text-zinc-500 mb-4">
-            Written by{" "}
-            <Link href="/about-yudha-hafiz" className="text-cyan-400 hover:underline">
+            {d.writtenBy}{" "}
+            <Link href={`${prefix}/about`} className="text-cyan-400 hover:underline">
               Yudha Hafiz
             </Link>
           </p>
           <Link
-            href="/blog"
+            href={`${prefix}/blog`}
             className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-cyan-400 transition-colors"
           >
             <ArrowLeft size={14} />
-            Back to all articles
+            {d.backToAll}
           </Link>
         </div>
       </div>

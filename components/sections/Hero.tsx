@@ -6,8 +6,16 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { TypingAnimation } from "@/components/animations/TypingAnimation";
 import { TerminalAnimation } from "@/components/animations/TerminalAnimation";
+import type { Dictionary, Locale } from "@/dictionaries";
 
-export function Hero() {
+interface HeroProps {
+  dict: Dictionary;
+  lang: Locale;
+}
+
+export function Hero({ dict, lang }: HeroProps) {
+  const prefix = lang === "en" ? "/en" : "";
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16">
       {/* Background grid */}
@@ -32,7 +40,7 @@ export function Hero() {
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-sm font-medium mb-8"
         >
           <Sparkles size={14} />
-          Available for new projects
+          {dict.hero.badge}
         </motion.div>
 
         <motion.h1
@@ -41,14 +49,9 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.1 }}
           className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-tight mb-6 flex flex-col sm:block"
         >
-          <span>Hi, I&apos;m </span>
-          <TypingAnimation 
-            texts={[
-              "Yudha Hafiz",
-              "a Fullstack Developer",
-              "an AI Integrator",
-              "an Automation Specialist"
-            ]}
+          <span>{dict.hero.greeting}</span>
+          <TypingAnimation
+            texts={[...dict.hero.typingTexts]}
             className="gradient-text inline-block"
           />
         </motion.h1>
@@ -59,7 +62,7 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="text-xl sm:text-2xl text-zinc-400 max-w-3xl mx-auto mb-4 leading-relaxed"
         >
-          Building digital products that drive real business impact — from MVPs to enterprise solutions.
+          {dict.hero.tagline}
         </motion.p>
 
         <motion.div
@@ -69,12 +72,15 @@ export function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
         >
           <Button size="lg" asChild className="rounded-full px-8">
-            <a href="#contact">
-              Let&apos;s Work Together
-            </a>
+            <a href={`${prefix}/#contact`}>{dict.hero.cta}</a>
           </Button>
-          <Button size="lg" variant="outline" asChild className="rounded-full px-8 border-zinc-800 hover:bg-zinc-900">
-            <Link href="/projects">View My Projects</Link>
+          <Button
+            size="lg"
+            variant="outline"
+            asChild
+            className="rounded-full px-8 border-zinc-800 hover:bg-zinc-900"
+          >
+            <Link href={`${prefix}/projects`}>{dict.hero.viewProjects}</Link>
           </Button>
         </motion.div>
 
@@ -88,7 +94,7 @@ export function Hero() {
           transition={{ duration: 1, delay: 1.5 }}
           className="mt-20 flex flex-col items-center gap-2 text-zinc-600"
         >
-          <span className="text-xs uppercase tracking-widest">Scroll</span>
+          <span className="text-xs uppercase tracking-widest">{dict.hero.scroll}</span>
           <motion.div
             animate={{ y: [0, 6, 0] }}
             transition={{ repeat: Infinity, duration: 1.5 }}

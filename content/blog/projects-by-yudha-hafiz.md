@@ -59,4 +59,4 @@ Here's a look at some of the most impactful work.
 
 Every project Yudha builds follows the same principle: **understand the problem deeply before writing code**.
 
-Want to see what we can build together? [View the full portfolio](/projects-yudha-hafiz).
+Want to see what we can build together? [View the full portfolio](/projects).

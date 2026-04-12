@@ -3,37 +3,14 @@
 import { motion } from "framer-motion";
 import { Globe, Zap, Brain, MessageSquare } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import type { Dictionary } from "@/dictionaries";
 
-const services = [
-  {
-    icon: Globe,
-    title: "Web Application Development",
-    description:
-      "Full-stack web apps built with Next.js, React, and TypeScript. From MVPs to scalable enterprise solutions — fast, reliable, and beautiful.",
-    color: "cyan",
-  },
-  {
-    icon: Zap,
-    title: "Automation & Workflow",
-    description:
-      "Eliminate repetitive tasks with custom automation. Save hundreds of hours monthly with tailored backend processes and integrations.",
-    color: "violet",
-  },
-  {
-    icon: Brain,
-    title: "AI Integration",
-    description:
-      "Integrate LLMs, chatbots, and AI features into your products. Turn AI from a buzzword into a real competitive advantage.",
-    color: "cyan",
-  },
-  {
-    icon: MessageSquare,
-    title: "Tech Consulting",
-    description:
-      "Not sure where to start? Get clear technical direction for your product — architecture, stack decisions, and build roadmap.",
-    color: "violet",
-  },
-];
+const icons = [Globe, Zap, Brain, MessageSquare];
+const colors = ["cyan", "violet", "cyan", "violet"] as const;
+
+interface ServicesProps {
+  dict: Dictionary;
+}
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -48,7 +25,7 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
-export function Services() {
+export function Services({ dict }: ServicesProps) {
   return (
     <section id="services" className="py-24 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
@@ -60,14 +37,12 @@ export function Services() {
           className="text-center mb-16"
         >
           <span className="text-cyan-400 text-sm font-semibold uppercase tracking-widest mb-3 block">
-            What I Do
+            {dict.services.label}
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-zinc-100 mb-4">
-            Services
+            {dict.services.title}
           </h2>
-          <p className="text-zinc-400 max-w-xl mx-auto">
-            I help businesses and startups build digital products that actually work — and scale.
-          </p>
+          <p className="text-zinc-400 max-w-xl mx-auto">{dict.services.subtitle}</p>
         </motion.div>
 
         <motion.div
@@ -77,25 +52,29 @@ export function Services() {
           viewport={{ once: true }}
           className="grid grid-cols-1 sm:grid-cols-2 gap-6"
         >
-          {services.map((service) => (
-            <motion.div key={service.title} variants={itemVariants}>
-              <Card className="h-full glow-hover group">
-                <CardHeader>
-                  <div
-                    className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 ${
-                      service.color === "cyan"
-                        ? "bg-cyan-500/15 text-cyan-400 border border-cyan-500/20"
-                        : "bg-violet-500/15 text-violet-400 border border-violet-500/20"
-                    }`}
-                  >
-                    <service.icon size={22} />
-                  </div>
-                  <CardTitle>{service.title}</CardTitle>
-                  <CardDescription>{service.description}</CardDescription>
-                </CardHeader>
-              </Card>
-            </motion.div>
-          ))}
+          {dict.services.items.map((service, i) => {
+            const Icon = icons[i];
+            const color = colors[i];
+            return (
+              <motion.div key={service.title} variants={itemVariants}>
+                <Card className="h-full glow-hover group">
+                  <CardHeader>
+                    <div
+                      className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 ${
+                        color === "cyan"
+                          ? "bg-cyan-500/15 text-cyan-400 border border-cyan-500/20"
+                          : "bg-violet-500/15 text-violet-400 border border-violet-500/20"
+                      }`}
+                    >
+                      <Icon size={22} />
+                    </div>
+                    <CardTitle>{service.title}</CardTitle>
+                    <CardDescription>{service.description}</CardDescription>
+                  </CardHeader>
+                </Card>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>

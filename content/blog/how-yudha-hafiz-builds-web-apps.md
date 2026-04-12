@@ -79,4 +79,4 @@ This process consistently delivers:
 - ✅ High Lighthouse scores
 - ✅ Happy clients
 
-Want to work together? [Let's talk](/about-yudha-hafiz#contact).
+Want to work together? [Let's talk](/about).
