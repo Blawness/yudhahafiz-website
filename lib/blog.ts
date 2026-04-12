@@ -4,7 +4,7 @@ import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
 
-const postsDirectory = path.join(process.cwd(), "content/blog");
+const blogDirectory = path.join(process.cwd(), "content/blog");
 
 export interface BlogPost {
   slug: string;
@@ -14,8 +14,10 @@ export interface BlogPost {
   content?: string;
 }
 
-export function getAllPosts(): BlogPost[] {
+export function getAllPosts(locale: string = "id"): BlogPost[] {
+  const postsDirectory = path.join(blogDirectory, locale);
   if (!fs.existsSync(postsDirectory)) return [];
+  
   const fileNames = fs.readdirSync(postsDirectory);
   const allPosts = fileNames
     .filter((f) => f.endsWith(".md"))
@@ -35,8 +37,8 @@ export function getAllPosts(): BlogPost[] {
   return allPosts.sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
-export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
-  const fullPath = path.join(postsDirectory, `${slug}.md`);
+export async function getPostBySlug(slug: string, locale: string = "id"): Promise<BlogPost | null> {
+  const fullPath = path.join(blogDirectory, locale, `${slug}.md`);
   if (!fs.existsSync(fullPath)) return null;
 
   const fileContents = fs.readFileSync(fullPath, "utf8");
@@ -53,3 +55,4 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     content: contentHtml,
   };
 }
+

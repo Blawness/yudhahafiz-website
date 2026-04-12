@@ -34,7 +34,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
   const d = dict.blogPage;
   const prefix = locale === "en" ? "/en" : "";
 
-  const posts = getAllPosts();
+  const posts = getAllPosts(locale);
 
   return (
     <div className="pt-24 pb-20 px-4 sm:px-6">

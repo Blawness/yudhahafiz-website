@@ -57,22 +57,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const blogRoutes: MetadataRoute.Sitemap = [];
-  
-  posts.forEach((post) => {
-    blogRoutes.push(
-      {
-        url: `${baseUrl}/blog/${post.slug}`,
+  const locales = ["id", "en"] as const;
+
+  locales.forEach((locale) => {
+    const posts = getAllPosts(locale);
+    const prefix = locale === "en" ? "/en" : "";
+    
+    posts.forEach((post) => {
+      blogRoutes.push({
+        url: `${baseUrl}${prefix}/blog/${post.slug}`,
         lastModified: new Date(post.date),
         changeFrequency: "monthly",
         priority: 0.7,
-      },
-      {
-        url: `${baseUrl}/en/blog/${post.slug}`,
-        lastModified: new Date(post.date),
-        changeFrequency: "monthly",
-        priority: 0.7,
-      }
-    );
+      });
+    });
   });
 
   return [...staticRoutes, ...blogRoutes];

@@ -10,10 +10,10 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const posts = getAllPosts();
   const params: { lang: string; slug: string }[] = [];
 
   for (const lang of locales) {
+    const posts = getAllPosts(lang);
     for (const post of posts) {
       params.push({ lang, slug: post.slug });
     }
@@ -25,7 +25,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang, slug } = await params;
   const locale = locales.includes(lang as Locale) ? (lang as Locale) : defaultLocale;
-  const post = await getPostBySlug(slug);
+  const post = await getPostBySlug(slug, locale);
   if (!post) return {};
 
   const baseUrl = "https://yudhahafiz.com";
@@ -54,7 +54,7 @@ export default async function BlogPostPage({ params }: Props) {
   const d = dict.blogPage;
   const prefix = locale === "en" ? "/en" : "";
 
-  const post = await getPostBySlug(slug);
+  const post = await getPostBySlug(slug, locale);
 
   if (!post) notFound();
 
