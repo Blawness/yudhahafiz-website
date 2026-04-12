@@ -36,8 +36,28 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Default locale (id) — no prefix needed, serve as-is
-  return NextResponse.next();
+  // If the pathname has the default locale prefix (e.g., /id/about),
+  // we redirect to the version without prefix to keep URLs clean.
+  if (pathname === `/${defaultLocale}` || pathname.startsWith(`/${defaultLocale}/`)) {
+    const newPathname = pathname.replace(`/${defaultLocale}`, "") || "/";
+    return NextResponse.redirect(new URL(newPathname, request.url));
+  }
+
+  // At this point, the URL does not have a locale prefix (e.g., / or /about)
+  const locale = getLocale(request);
+
+  if (locale === defaultLocale) {
+    // For default locale, rewrite internally so user sees / in URL
+    // but Next.js sees /[lang]/...
+    const url = request.nextUrl.clone();
+    url.pathname = `/${defaultLocale}${pathname}`;
+    return NextResponse.rewrite(url);
+  } else {
+    // For other locales, redirect to the prefixed version
+    return NextResponse.redirect(
+      new URL(`/${locale}${pathname === "/" ? "" : pathname}`, request.url)
+    );
+  }
 }
 
 export const config = {
